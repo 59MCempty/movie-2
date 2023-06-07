@@ -1,6 +1,7 @@
 import actionType from "../action/action.type.js";
 
 const initState = {
+	total_list: [],
 	popular: [],
 	top_rated: [],
 	upcoming: [],

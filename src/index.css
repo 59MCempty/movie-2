@@ -1,0 +1,22 @@
+@import "components/Navbar/Navbar.css";
+@import "Route/Mainpage/mainpage.css";
+@import "components/Row/Row.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply lg:h-[140vh] bg-gradient-to-t from-black to-[#121212];
+    }
+}
+
+@layer components {
+    .genreStyle {
+        @apply text-lg h-10 flex items-center justify-start border-r-2 font-bold font-sans last:border-none text-red-600 pr-3;
+    }
+
+    .playBtn__title {
+        @apply flex flex-col items-center justify-center transition delay-300 ease-out duration-500 h-[90%] bg-black/50 w-full opacity-0 hover:opacity-100 cursor-pointer;
+    }
+}

@@ -1,0 +1,16 @@
+.shadowBanner {
+    @apply w-full absolute h-[1024px] top-0 left-0 bg-gradient-to-l from-black drop-shadow-lg;
+}
+.banner {
+    @apply h-full w-full object-cover object-center bg-gradient-to-b from-black;
+}
+.titleBanner {
+    @apply absolute flex flex-col gap-y-2 md:w-full h-[650px] top-[30%] px-5 md:px-24;
+}
+
+.overview {
+    @apply mt-5 font-sans text-xl text-white/90;
+}
+.buttonHomepage {
+    @apply text-2xl flex items-center transition rounded-md duration-500 ease-out font-bold justify-center gap-x-3 uppercase h-full w-full text-white hover:bg-gray-600/70;
+}

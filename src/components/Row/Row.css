@@ -1,0 +1,10 @@
+.title__trending {
+    @apply capitalize w-fit h-fit font-medium text-2xl rounded-lg p-1 shadow-lg shadow-white/40;
+}
+.icon__row {
+    @apply w-12 bg-black/50 absolute text-white h-[90%] cursor-pointer top-0 flex items-center;
+}
+
+.box__silde {
+    @apply w-full h-full items-center flex gap-x-10 overflow-x-scroll scroll-smooth whitespace-nowrap transition-all ease-in duration-300;
+}

@@ -1,13 +1,14 @@
 @import "components/Navbar/Navbar.css";
-@import "Route/Mainpage/mainpage.css";
+@import "components/Mainpage/mainpage.css";
 @import "components/Row/Row.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
     body {
-        @apply lg:h-[140vh] bg-gradient-to-t from-black to-[#121212];
+        @apply h-screen bg-gradient-to-t from-black to-[#121212] font-sans;
     }
 }
 
@@ -18,5 +19,42 @@
 
     .playBtn__title {
         @apply flex flex-col items-center justify-center transition delay-300 ease-out duration-500 h-[90%] bg-black/50 w-full opacity-0 hover:opacity-100 cursor-pointer;
+    }
+    .content__movie{
+        @apply text-3xl uppercase text-yellow-500 mt-40 md:mt-28 font-mono tracking-normal;
+    }
+
+    .style__button__movie{
+        @apply h-full w-36 flex items-center justify-center border-b-2 bg-[#232323] shadow-lg hover:border-orange-500 hover:bg-[#363636] border-red-500;
+    }
+    .nameType__btn__movie{
+        @apply w-full h-full text-2xl uppercase;
+    }
+
+    .content__tv {
+        @apply text-3xl uppercase text-yellow-500 mt-40 md:mt-28 font-mono tracking-normal;
+    }
+
+    .style__btn__tv {
+        @apply h-full w-36 flex items-center justify-center border-b-2 bg-[#232323] shadow-lg hover:border-blue-500 hover:bg-[#363636] border-red-500;
+    }
+    .grid__Card {
+        @apply grid grid-cols-3 md:grid-cols-5 gap-x-5 mt-7 place-items-center;
+    }
+    .layout__Card {
+        @apply h-[400px] w-[200px] md:w-[160px] lg:h-[550px] lg:w-[180px] 2xl:w-full flex flex-col items-center justify-center cursor-pointer mb-3;
+    }
+    .card__media {
+        @apply relative transition duration-150 delay-300 ease-out hover:scale-125 h-[90%] w-full hover:z-50;
+    }
+    .style__btn {
+        @apply absolute transition duration-150 delay-300 ease-out w-full h-full opacity-0 hover:opacity-100 hover:bg-gradient-to-b from-black top-0 flex items-center justify-center;
+    }
+    .name__card {
+        @apply text-center inline-block align-middle text-lg md:text-2xl;
+    }
+
+    .btn__details {
+        @apply bg-transparent w-40 h-14 uppercase cursor-pointer hover:bg-gray-600/50 transition ease-out duration-500 border-b;
     }
 }

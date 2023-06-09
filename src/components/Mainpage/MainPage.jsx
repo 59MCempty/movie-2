@@ -1,14 +1,16 @@
 import React, {useEffect} from 'react';
 import {api_config} from "../../apis/api.configs.js";
 import dayjs from "dayjs";
-import Genre from "../../components/Genre/GenreList.jsx";
-import RatedStar from "../../components/Starrated/RatedStar.jsx";
+import Genre from "../Genre/GenreList.jsx";
+import RatedStar from "../Starrated/RatedStar.jsx";
 import {AiFillRightCircle} from 'react-icons/ai';
 import {useSelector} from "react-redux";
+import {Link} from "react-router-dom";
+
 
 const MainPage = () => {
-	const {trendingData} = useSelector(state => state.trending);
 
+	const {trendingData} = useSelector(state => state.trending);
 	const RandomNumberMoive = Math.floor(Math.random() * trendingData[0]?.all.length);
 
 	const movie = RandomNumberMoive > 0 ? trendingData[0]?.all[RandomNumberMoive] : 0;
@@ -38,12 +40,14 @@ const MainPage = () => {
 					{movie.overview}
 				</div>
 				<div className="w-44 h-20 mt-5 border-none outline-none">
-					<button
-						name="details"
-						type="button"
-						className="buttonHomepage bg-gray-800/40">
-						<AiFillRightCircle size={35}/> Details
-					</button>
+					<Link to={`/${movie?.media_type}/${movie?.id}`}>
+						<button
+							name="details"
+							type="button"
+							className="buttonHomepage bg-gray-800/40">
+							<AiFillRightCircle size={35}/> Details
+						</button>
+					</Link>
 				</div>
 			</div>
 		</div>

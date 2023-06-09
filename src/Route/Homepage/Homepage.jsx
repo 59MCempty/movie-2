@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
-import MainPage from "../../Route/Mainpage/MainPage.jsx";
-import Row from "../Row/Row.jsx";
+import MainPage from "../../components/Mainpage/MainPage.jsx";
+import Row from "../../components/Row/Row.jsx";
 import {useSelector, useDispatch} from "react-redux";
 import {getTrending} from "../../apis/module/api.trending.js";
 

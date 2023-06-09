@@ -56,6 +56,67 @@ const tmdbApi = {
 		} catch ({err}) {
 			console.log(err);
 		}
+	},
+	getTV: async (mediaType) => {
+		try {
+			const url = 'tv/' + mediaType;
+			return clientConfig.get(url)
+		} catch ({err}) {
+			console.log(err);
+		}
+	},
+	getMediaDetail: async (mediaType, mediaId) => {
+		try {
+			const url = `${mediaType}/${mediaId}`;
+			return clientConfig.get(url);
+		}
+		catch ({err}) {
+			console.log(err);
+		}
+	},
+	getCredit: async (mediaType, mediaId) => {
+		try {
+			const url = `${mediaType}/${mediaId}/credits`;
+			return clientConfig.get(url);
+		}
+		catch ({err}) {
+			console.log(err);
+		}
+	},getImages: async (mediaType, mediaId) => {
+		try {
+			const url = `${mediaType}/${mediaId}/images`;
+			return clientConfig.get(url);
+		}
+		catch ({err}) {
+			console.log(err);
+		}
+	}
+	,getVideos: async (mediaType, mediaId) => {
+		try {
+			const url = `${mediaType}/${mediaId}/videos`;
+			return clientConfig.get(url);
+		}
+		catch ({err}) {
+			console.log(err);
+		}
+	}
+	,getSimilar: async (mediaType, mediaId) => {
+		try {
+			const url = `${mediaType}/${mediaId}/similar`;
+			return clientConfig.get(url);
+		}
+		catch ({err}) {
+			console.log(err);
+		}
+	},
+	getSearchMulti: async (keyword, page) => {
+		try {
+			const url = `search/multi?query=${keyword}&page=${page}`;
+			return clientConfig.get(url);
+		}
+		catch ({err}) {
+			console.log(err);
+		}
 	}
 }
 

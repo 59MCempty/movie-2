@@ -2,12 +2,12 @@ import React from 'react';
 import {AiFillCaretLeft, AiFillCaretRight} from 'react-icons/ai';
 import Card from "../Card/Card.jsx";
 import {Link} from "react-router-dom";
-import {trending} from "../../apis/tmdb.api.js";
 
 const Row = ({trendingList}) => {
+
 	const category = Object.keys(trendingList)[0];
 	const movieList = Object.values(trendingList)[0];
-	console.log(trendingList)
+
 	const moveLeft = () => {
 		let move = document.getElementById("slide" + category)
 		move.scrollLeft -= 1000

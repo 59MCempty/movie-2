@@ -11,6 +11,7 @@ const initState = {
 const movieReducer = (state=initState, action) => {
 	switch (action.type) {
 		case actionType.GET_MOVIE:
+			console.log(action)
 			return {
 				...state,
 				popular: action.popular,

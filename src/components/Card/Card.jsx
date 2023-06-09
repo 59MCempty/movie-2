@@ -2,8 +2,10 @@ import React from 'react';
 import {api_config} from "../../apis/api.configs.js";
 import {AiFillPlayCircle} from "react-icons/ai";
 import {BsStarFill} from "react-icons/bs";
+import {Link} from "react-router-dom";
 
 const Card = ({item}) => {
+
 	return (
 		<div className="w-[400px] h-[250px] flex-shrink-0 relative ">
 			<div>
@@ -13,7 +15,9 @@ const Card = ({item}) => {
 					alt={item?.title || item?.name}/>
 			</div>
 			<div className="playBtn__title absolute top-0">
-				<AiFillPlayCircle className="text-red-600" size={45}/>
+				<Link to={`/${item?.media_type}/${item?.id}`}>
+					<AiFillPlayCircle className="text-red-600" size={45}/>
+				</Link>
 				<h1 className="text-white text-xl">
 					{item?.title || item?.name}
 				</h1>

@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar/Navbar.jsx";
 import Homepage from "./Route/Homepage/Homepage.jsx";
 import MoviePage from "./Route/MoviePage/MoviePage.jsx";
 import TVPage from "./Route/TV/TVPage.jsx";
-import {MediaDetails} from "./Route/MediaDetails/MediaDetails.jsx";
+import MediaDetails from "./Route/MediaDetails/MediaDetails.jsx";
 import {SearchPage} from "./Route/SearchPage/SearchPage.jsx";
 
 

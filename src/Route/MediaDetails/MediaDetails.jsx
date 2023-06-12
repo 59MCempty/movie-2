@@ -1,150 +1,83 @@
-import React, {useEffect, useRef, useState} from 'react'
-import {Link, NavLink, useLocation} from "react-router-dom";
-import tmdbApi from "../../apis/tmdb.api.js";
-import {api_config} from "../../apis/api.configs.js";
-import {BsStarFill} from "react-icons/bs";
-import dayjs from "dayjs";
-import {Overview} from "../../components/Overview/Overview.jsx";
-import {Video} from "../../components/Trailers/Video.jsx";
-import {Similar} from "../../components/SimilarVideo/Similar.jsx";
+import React, { useEffect, useState } from 'react'
+import tmdbApi from '../../apis/tmdb.api.js'
+import { api_config } from '../../apis/api.configs.js'
+import { BsPlayFill, BsStarFill } from 'react-icons/bs'
+import dayjs from 'dayjs'
 
-export const MediaDetails = () => {
+const MediaDetails = () => {
+    const [dataDetailsofMovie, setDataDetailsofMovie] = useState([])
+    const pathname = location.pathname.split('/')
+    const mediaType = pathname[1]
+    const mediaId = pathname[2]
 
-	const buttonRef = useRef(null);
-	const [temp, setTemp] = useState({
-		condition: false,
-		name: null,
-	});
-	const [mediaDetails, setMediaDetails] = useState([]);
-	const [credits, setCredits] = useState([]);
-	const [images, setImages] = useState([]);
-	const [similarVid, setSimilarVid] = useState([]);
-	const [videoId, setVideoId] = useState();
-	const location = useLocation();
-	const pathname = location.pathname.split('/');
-	const media_type = pathname[1];
-	const media_id = pathname[2];
-	console.log(mediaDetails)
+    const getDetailsOfMovie = async () => {
+        const response = await tmdbApi.getMediaDetail(mediaType, mediaId)
+        setDataDetailsofMovie(response)
 
-	const episodes = mediaDetails?.number_of_episodes >= 2 ? mediaDetails?.number_of_episodes + " SEASONS" : mediaDetails?.number_of_episodes + " SEASON";
-	console.log(episodes)
-	const getDetailsData = async (media_type, media_id) => {
-		const response1 = await tmdbApi.getMediaDetail(media_type, media_id);
-		if (response1) {
-			setMediaDetails(response1);
-		}
-		const response2 = await tmdbApi.getCredit(media_type, media_id);
-		if (response2) {
-			setCredits(response2.cast.slice(0, 3));
-		}
+    }
 
-		const response3 = await tmdbApi.getImages(media_type, media_id);
-		if (response3) {
-			setImages(response3?.posters.slice(1, 6));
-		}
-		const response4 = await tmdbApi.getVideos(media_type, media_id);
-		if (response4) {
-			setVideoId(api_config.youtubePath(response4.results[0].key));
-		}
-		const response5 = await tmdbApi.getSimilar(media_type, media_id);
-		if (response5) {
-			setSimilarVid(response5.results.slice(0, 8))
-		}
-	}
+    useEffect(() => {
+        getDetailsOfMovie()
+    }, [])
+    console.log(dataDetailsofMovie)
+    const realease_Year = dayjs(dataDetailsofMovie?.release_date).format('YYYY')
+    const realease_date = dayjs(dataDetailsofMovie?.release_date).format('MMM DD, YY')
+    const hour = Math.floor(dataDetailsofMovie?.runtime / 60)
+    const minutes = dataDetailsofMovie?.runtime % 60
+    const runtime = hour + 'h ' + minutes + 'm'
 
-	useEffect(() => {
-		getDetailsData(media_type, media_id)
-		if (buttonRef.current) {
-			buttonRef.current.click();
-		}
-	}, [media_id])
+    return (dataDetailsofMovie?.backdrop_path && <div style={{ backgroundImage: `url(${api_config.originalImage(dataDetailsofMovie?.backdrop_path)})` }} className="bg-center bg-cover bg-sky-500/75 bg-no-repeat -Z-20 h-screen w-full">
+        <div className="bg-black/60 w-full h-screen px-0 md:px-14 lg:px-52">
+            <div className="pt-52 sm:pt-40 md:pt-32">
+                <div className="md:flex h-full w-full gap-x-10 px-2 md:px-0">
+                    <div className="h-[520px] w-full md:w-[300px] lg:w-[320px]">
+                        <img
+                            className="h-full w-full object-center rounded-2xl shadow-lg `"
+                            src={api_config.w500Image(dataDetailsofMovie?.poster_path || backdrop_path)} alt={dataDetailsofMovie?.name || dataDetailsofMovie?.title} />
+                    </div>
+                    <div className="flex flex-col gap-y-2">
+                        <h1 className="text-white text-2xl lg:text-3xl">
+                            {dataDetailsofMovie?.name || dataDetailsofMovie?.title}
+                            <span>({realease_Year})</span>
+                        </h1>
+                        <h1 className="text-gray-500 text-lg font-normal italic">
+                            {dataDetailsofMovie?.tagline}
+                        </h1>
+                        <div className="flex gap-x-5 text-md w-full">
+                            {dataDetailsofMovie?.genres?.map((item) => <div className="bg-rose-600 px-2 rounded-lg text-white" key={item?.id}>
+                                <h1>{item.name}</h1>
+                            </div>)}
+                        </div>
 
-	const release_date = dayjs(mediaDetails?.release_date || mediaDetails?.first_air_date).format('YYYY');
-	const hour = Math.floor(mediaDetails?.runtime / 60); // Lấy phần nguyên khi chia cho 60
-	const minutes = mediaDetails?.runtime % 60; // Lấy phần dư khi chia cho 60
-	const runtimeHour = hour + "h " + minutes + 'm';
+                        <div className="flex gap-x-2 items-center justify-start text-white">
+                            {(dataDetailsofMovie?.vote_average * 5 / 10).toFixed(2)} / 5 <BsStarFill className="text-yellow-500" />
+                        </div>
 
-	const getGenre = mediaDetails?.genres?.map((item, index) => {
-		return item.name;
-	})
-	const displayDetails = () => {
-		if (temp.condition === true && temp.name === "overview") {
-			return (
-				<Overview mediaDetails={mediaDetails} images={images} credits={credits} getGenre={getGenre}/>
-			)
-		}
+                        <div className="w-[400px] lg:w-[600px] text-white">
+                            <h1 className="text-xl">Overview</h1>
+                            <h1>{dataDetailsofMovie?.overview}</h1>
+                        </div>
 
-		if (temp.condition === true && temp.name === "trailer") {
-			return (
-				<Video videoId={videoId} />
-			)
-		}
+                        <div className="text-gray-500 grid grid-cols-1 gap-y-2 md:grid-cols-2 lg:grid-cols-12 w-full lg:border-b lg:border-gray-600 ">
+                            <h1 className="col-span-3">Status: <span className="text-white">{dataDetailsofMovie?.status}</span></h1>
+                            <h1 className="col-span-4">Realease Date: <span className=" text-white">{realease_date}</span></h1>
+                            <h1 className="col-span-5 lg:flex lg:justify-center">runtime: <span className="text-white ml-1">{runtime}</span></h1>
+                        </div>
 
-		if (temp.condition === true && temp.name === "similar") {
-			return (
-				<Similar media_type={media_type} similarVid={similarVid} />
-			)
-		}
-	}
-	const clickBtn = (e) => {
-		if (e.target.name === "overview" || e.target.name === "trailer" || e.target.name === "similar") {
-			setTemp(prevState => ({
-				...prevState, name: e.target.name, condition: true,
-			}))
-		}
-	}
+                        <div className="flex gap-x-3 items-center mt-3">
+                            <button>
+                                <BsPlayFill size={50} className="text-red-500 w-32 bg-red-500/50 hover:bg-red-600" />
+                            </button>
+                            <h1 className="text-white text-2xl font-thin">
+                                Watch Trailers
+                            </h1>
+                        </div>
+                    </div>
 
-
-	return (
-		mediaDetails &&
-		<section className="mt-40 md:mt-32 w-full h-[650px] grid grid-cols-12 text-white -z-20">
-			<div className="col-span-5">
-				<div className="h-full w-full flex justify-end">
-					<img
-						className="h-full xl:w-[550px] object-center object-cover block shadow-lg shadow-gray-950/70"
-						src={api_config.w500Image(mediaDetails?.poster_path)} alt={mediaDetails?.name}/>
-				</div>
-			</div>
-
-			<div className="px-8 col-span-7 max-w-screen-lg">
-				<div className="flex justify-between items-center w-full mt-3 font-medium">
-					<h1 className="lg:text-5xl text-3xl uppercase w-[90%]">{mediaDetails?.name || mediaDetails?.title}</h1>
-
-					<h1 className="flex items-center justify-content w-52 gap-x-2 text-2xl ">{(mediaDetails?.vote_average * 5 / 10).toFixed(2)} /
-						5 <BsStarFill size={50} className="text-yellow-600"/></h1>
-				</div>
-
-				<div className="flex gap-x-4 items-center mt-4 text-xl text-gray-600 w-fit px-3">
-					<h1 className="border-r border-gray-600 pr-3 uppercase">{release_date}</h1>
-					<h1 className="border-r border-gray-600 pr-3">{mediaDetails?.number_of_episodes ? episodes : runtimeHour}</h1>
-					<h1 className="border-r border-gray-600 pr-3 uppercase">{mediaDetails?.original_language}</h1>
-				</div>
-
-				<div className="w-fit flex text-3xl mt-4">
-					<button
-						ref={buttonRef}
-						onClick={(e) => clickBtn(e)}
-						name="overview"
-						type="button"
-						className={`btn__details ${temp.condition === true && temp.name === 'overview' ? 'bg-gray-800' : ""}`}>overview
-					</button>
-					<button
-						onClick={(e) => clickBtn(e)}
-						name="trailer"
-						type="button"
-						className={`btn__details ${temp.condition === true && temp.name === 'trailer' ? 'bg-gray-800' : ""}`}>trailer
-					</button>
-					<button
-						onClick={(e) => clickBtn(e)}
-						name="similar"
-						type="button"
-						className={`btn__details ${temp.condition === true && temp.name === 'similar' ? 'bg-gray-800' : ""}`}>similar
-					</button>
-				</div>
-
-				{displayDetails()}
-			</div>
-
-		</section>
-	)
+                </div>
+            </div>
+        </div>
+    </div>)
 }
+
+export default MediaDetails

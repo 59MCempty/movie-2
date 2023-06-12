@@ -5,11 +5,11 @@ import {BsFillPlayCircleFill} from "react-icons/bs";
 
 export const DIsplayTvTrending = ({trendingTV}) => {
 	return (
-		<div className="grid grid-cols-3 md:grid-cols-5 gap-x-5 mt-7 max-w-screen place-items-center">
+		<div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-5 mt-7 max-w-screen place-items-center">
 			{
 				trendingTV?.map((item, index) =>
 					<div key={index} className="w-full">
-						<div key={index} className="h-[400px] w-[200px] md:w-[160px] lg:h-[550px] lg:w-[180px] 2xl:w-full flex flex-col items-center justify-center cursor-pointer mb-3">
+						<div key={index} className="h-[450px] w-full flex flex-col items-center justify-center cursor-pointer mb-3">
 							<div className="relative transition duration-150 delay-300 ease-out hover:scale-125 h-[90%] w-full hover:z-50">
 								<img
 									className="rounded-xl shadow-xl z-100 object-cover object-center h-full w-full border"

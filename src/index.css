@@ -39,10 +39,10 @@
         @apply h-full w-36 flex items-center justify-center border-b-2 bg-[#232323] shadow-lg hover:border-blue-500 hover:bg-[#363636] border-red-500;
     }
     .grid__Card {
-        @apply grid grid-cols-3 md:grid-cols-5 gap-x-5 mt-7 place-items-center;
+        @apply grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-2 lg:gap-x-2 mt-7 w-full place-items-center;
     }
     .layout__Card {
-        @apply h-[400px] w-[200px] md:w-[160px] lg:h-[550px] lg:w-[180px] 2xl:w-full flex flex-col items-center justify-center cursor-pointer mb-3;
+        @apply h-[450px] w-full flex flex-col items-center justify-center cursor-pointer mb-3;
     }
     .card__media {
         @apply relative transition duration-150 delay-300 ease-out hover:scale-125 h-[90%] w-full hover:z-50;

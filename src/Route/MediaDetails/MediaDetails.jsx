@@ -97,20 +97,20 @@ export const MediaDetails = () => {
 
 	return (
 		mediaDetails &&
-		<section className="mt-40 md:mt-32 w-full grid grid-cols-12 text-white -z-20">
+		<section className="mt-40 md:mt-32 w-full h-[650px] grid grid-cols-12 text-white -z-20">
 			<div className="col-span-5">
 				<div className="h-full w-full flex justify-end">
 					<img
-						className="h-full w-[380px] md:h-full md:w-[420px] xl:h-full xl:w-[550px] object-center object-cover block shadow-lg shadow-gray-950/70"
+						className="h-full xl:w-[550px] object-center object-cover block shadow-lg shadow-gray-950/70"
 						src={api_config.w500Image(mediaDetails?.poster_path)} alt={mediaDetails?.name}/>
 				</div>
 			</div>
 
 			<div className="px-8 col-span-7 max-w-screen-lg">
 				<div className="flex justify-between items-center w-full mt-3 font-medium">
-					<h1 className="lg:text-5xl uppercase w-[90%]">{mediaDetails?.name || mediaDetails?.title}</h1>
+					<h1 className="lg:text-5xl text-3xl uppercase w-[90%]">{mediaDetails?.name || mediaDetails?.title}</h1>
 
-					<h1 className="flex justify-between items-center text-3xl gap-x-3 w-48">{(mediaDetails?.vote_average * 5 / 10).toFixed(2)} /
+					<h1 className="flex items-center justify-content w-52 gap-x-2 text-2xl ">{(mediaDetails?.vote_average * 5 / 10).toFixed(2)} /
 						5 <BsStarFill size={50} className="text-yellow-600"/></h1>
 				</div>
 

@@ -6,11 +6,11 @@ import {BsFillPlayCircleFill} from "react-icons/bs";
 export const DisplayTVList = ({list}) => {
 
 	return (
-		<div className="grid grid-cols-3 md:grid-cols-5 mt-7 gap-x-5 max-w-screen place-items-center">
+		<div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 mt-7 gap-x-2 max-w-screen place-items-center">
 			{
 				list?.map((item, index) =>
 					<div key={index} className="w-full">
-						<div className="h-[400px] w-[200px] md:w-[160px] lg:h-[550px] lg:w-[180px] 2xl:w-full flex flex-col items-center justify-center cursor-pointer mb-3">
+						<div className="h-[450px] w-full flex flex-col items-center justify-center cursor-pointer mb-3">
 							<div className="relative transition duration-150 delay-300 ease-out hover:scale-125 h-[90%] w-full hover:z-50">
 								<img
 									className="rounded-xl shadow-xl z-100 object-cover object-center h-full w-full border"
